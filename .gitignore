@@ -1,8 +1,8 @@
 tmp/
 data/
-directory/
-!app/directory/
 docs/
+
+homepage-api.code-workspace
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

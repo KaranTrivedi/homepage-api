@@ -1,0 +1,16 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings":
+    {
+        "logViewer.watch": [
+            {
+                "title": "default",
+                "pattern": "logs/default.log"
+            },
+        ]
+    }
+}
