@@ -1,26 +1,30 @@
-from starlite import LoggingConfig, Starlite, get, OpenAPIConfig
-from starlite.middleware import LoggingMiddlewareConfig
+"""
+Setup litestar project
+"""
 
-#logging_middleware_config = LoggingMiddlewareConfig()
+from litestar import Litestar, get
+import logging
+from litestar.middleware import DefineMiddleware
+from asgi_logger import AccessLoggerMiddleware
+from app.controllers.directory import DirectoryController
 
-logging_config = LoggingConfig(
-    loggers={
-        "my_app": {
-            "level": "INFO",
-            "handlers": ["queue_listener"],
-        }
-    }
-)
+LOGGING_MIDDLEWARE = DefineMiddleware(AccessLoggerMiddleware, format='%(client_addr)s - "%(request_line)s" %(L)s %(B)s %(status_code)s', logger=logging.getLogger("asgi-logger"))
 
-@get("/")
-async def index() -> dict[str, str]:
+@get("/ping")
+async def ping() -> bool:
     """
-    index function
+    Basic ping function.
     """
 
-    return "Hello world!"
+    return True
 
-
-app = Starlite(route_handlers=[index], logging_config=logging_config,
-        openapi_config=OpenAPIConfig(title="My API", version="1.0.0")
+app = Litestar(
+        route_handlers=[
+            ping,
+            DirectoryController
+            ],
+        middleware=[
+            LOGGING_MIDDLEWARE
+        ]
     )
+
