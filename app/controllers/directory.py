@@ -27,3 +27,20 @@ class DirectoryController(Controller):
         logger.info(path)
 
         return directory.dirobjects(path)
+
+
+    @get("/except_1")
+    async def get_except_1(self) -> None:
+        """
+        Test function for exception.
+        """
+
+        1/0
+
+    @get("/except_2")
+    async def get_except_2(self) -> None:
+        """
+        Test function for exception.
+        """
+
+        1/0
