@@ -5,7 +5,6 @@ Start file for initiating uvicorn.
 """
 
 import configparser
-import logging.config
 import uvicorn
 
 # Define config and logger.
